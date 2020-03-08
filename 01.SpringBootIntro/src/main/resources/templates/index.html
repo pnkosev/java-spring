@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:block>
-
-</th:block>
+<th:block th:replace="/fragments/head" />
 <body>
 <section>
     <div id="roof">
+        <img src="img/roof.png">
     </div>
     <div id="building"></div>
-    <div class="apartment">
-		<p>Rent: 700.00</p>
-		<p>Type: Two Room apartment</p>
-		<p>Commission: 50.00</p>
-	</div>
+<!--    <div class="apartment">-->
+<!--		<p>Rent: 700.00</p>-->
+<!--		<p>Type: Two Room apartment</p>-->
+<!--		<p>Commission: 50.00</p>-->
+<!--	</div>-->
     <div id="offerManager">
         <div id="regOffer">
-            <a href="/reg" class="button">Reg Offer</a>
+            <a th:href="@{/register}" class="button">Reg Offer</a>
         </div>
         <div id="findOffer">
-            <a href="/find" class="button">Find Offer</a>
+            <a href="@{/find}" class="button">Find Offer</a>
         </div>
     </div>
 </section>
