@@ -1,23 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="/fragments/head" />
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/fragments/head}"/>
 <body>
 <section>
     <div id="roof">
-        <img src="img/roof.png">
+        <img th:src="@{/img/roof.png}">
     </div>
-    <div id="building"></div>
-<!--    <div class="apartment">-->
-<!--		<p>Rent: 700.00</p>-->
-<!--		<p>Type: Two Room apartment</p>-->
-<!--		<p>Commission: 50.00</p>-->
-<!--	</div>-->
+    <div id="building">
+        <th:block th:if="${offers.size() == 0}">
+            <div id="notifications">
+                <p id="message">There aren't any offers!</p>
+            </div>
+        </th:block>
+        <th:block th:each="offer : ${offers}">
+            <div class="apartment">
+                <p>Rent: [[${offer.apartmentRent}]]</p>
+                <p>Type: [[${offer.apartmentType}]]</p>
+                <p>Commission: [[${offer.agencyCommission}]]</p>
+            </div>
+        </th:block>
+    </div>
     <div id="offerManager">
         <div id="regOffer">
-            <a th:href="@{/register}" class="button">Reg Offer</a>
+            <a th:href="@{/offers/register}" class="button">Reg Offer</a>
         </div>
         <div id="findOffer">
-            <a href="@{/find}" class="button">Find Offer</a>
+            <a th:href="@{/offers/find}" class="button">Find Offer</a>
         </div>
     </div>
 </section>

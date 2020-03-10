@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/fragments/head}"/>
+<body>
+<section>
+    <div id="roof">
+        <img th:src="@{/img/roof.png}">
+    </div>
+    <div id="building">
+    </div>
+    <div id="offerManager">
+        <form th:action="@{/offers/register}" method="post">
+            <input type="text" name="apartmentRent" id="apartmentRent" placeholder="Rent price..."/>
+            <input type="text" name="apartmentType" id="apartmentType" placeholder="Apartment type..."/>
+            <input type="text" name="agencyCommission" id="agencyCommission" placeholder="Commission rate..."/>
+            <div id="regOffer">
+                <button type="submit" class="button">Reg Offer</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

@@ -14,7 +14,7 @@ section {
 div#roof {
     width: 100%;
     height: 390px;
-    background-image: url("./roof.png");
+    background-image: url("/img/roof.png");
     border: 1px solid white;
 }
 
@@ -55,7 +55,7 @@ input, .button {
     margin: 7px;
 }
 
-#offerManager div#notifications p#message {
+#building div#notifications p#message {
     margin-top: 10px;
     text-align: center;
     text-decoration: underline;
