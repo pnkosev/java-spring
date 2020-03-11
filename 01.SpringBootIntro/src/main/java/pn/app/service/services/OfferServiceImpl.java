@@ -6,6 +6,7 @@ import pn.app.data.models.Offer;
 import pn.app.data.repositories.OfferRepository;
 import pn.app.service.models.OfferServiceModel;
 
+import javax.validation.Validator;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,13 +18,20 @@ public class OfferServiceImpl implements OfferService {
 
     private final ModelMapper modelMapper;
 
-    public OfferServiceImpl(OfferRepository offerRepository, ModelMapper modelMapper) {
+    private final Validator validator;
+
+    public OfferServiceImpl(OfferRepository offerRepository, ModelMapper modelMapper, Validator validator) {
         this.offerRepository = offerRepository;
         this.modelMapper = modelMapper;
+        this.validator = validator;
     }
 
     @Override
     public void create(OfferServiceModel offer) {
+        if (this.validator.validate(offer).size() != 0) {
+            throw new IllegalArgumentException("Something went wrong!");
+        }
+
         this.offerRepository.save(this.modelMapper.map(offer, Offer.class));
     }
 

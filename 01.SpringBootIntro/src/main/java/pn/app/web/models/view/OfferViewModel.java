@@ -1,33 +1,18 @@
-package pn.app.service.models;
+package pn.app.web.models.view;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class OfferServiceModel {
+public class OfferViewModel {
 
-    private String id;
-
-    @NotNull
-    @DecimalMin("0.0001")
     private BigDecimal apartmentRent;
 
-    @NotNull
-    @NotEmpty
     private String apartmentType;
 
-    @NotNull
-    @DecimalMin("0")
-    @DecimalMax("100")
     private BigDecimal agencyCommission;
 
-    public BigDecimal getApartmentRent() { return apartmentRent; }
-
-    public String getId() { return id; }
-
-    public void setId(String id) { this.id = id; }
+    public BigDecimal getApartmentRent() {
+        return apartmentRent;
+    }
 
     public void setApartmentRent(BigDecimal apartmentRent) {
         this.apartmentRent = apartmentRent;

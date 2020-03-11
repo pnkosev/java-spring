@@ -1,29 +1,28 @@
 package pn.app.web.controllers;
 
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pn.app.service.models.OfferServiceModel;
 import pn.app.service.services.OfferService;
-import pn.app.web.models.OfferFindBindingModel;
+import pn.app.web.models.binding.OfferFindBindingModel;
+import pn.app.web.models.binding.OfferRegisterBindingModel;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/offers")
 public class OffersController {
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
-    }
 
     private final OfferService offerService;
 
-    public OffersController(OfferService offerService) {
+    private final ModelMapper modelMapper;
+
+    public OffersController(OfferService offerService, ModelMapper modelMapper) {
         this.offerService = offerService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/register")
@@ -32,9 +31,14 @@ public class OffersController {
     }
 
     @PostMapping("register")
-    public ModelAndView registerConfirm(@ModelAttribute OfferServiceModel offerServiceModel) {
+    public ModelAndView registerConfirm(@ModelAttribute OfferRegisterBindingModel offer) {
 
-        this.offerService.create(offerServiceModel);
+        try {
+            this.offerService.create(this.modelMapper.map(offer, OfferServiceModel.class));
+        } catch (IllegalArgumentException iae) {
+            iae.printStackTrace();
+            return new ModelAndView("redirect:/offers/register");
+        }
 
         return new ModelAndView("redirect:/");
     }
