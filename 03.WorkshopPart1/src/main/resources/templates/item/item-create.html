@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Heroes</title>
-        <link rel="stylesheet" href="/css/reset-css.css">
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/style.css">
+<html
+        lang="en"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<th:block th:include="~{/fragments/head}"/>
 <body>
 <header>
     <header>
@@ -54,22 +51,22 @@
             <div class="row flex-md-row">
                 <div class="col col-sm-1"></div>
                 <div class="ml-lg-5">
-                    <img src="/img/weapon.jpg" class="border border-secondary" alt="weapon" width="110"
+                    <img src="/static/img/weapon.jpg" class="border border-secondary" alt="weapon" width="110"
                          height="100"/>
                 </div>
                 <div class="ml-lg-5">
-                    <img src="/img/helmet.jpg" class="border border-secondary" alt="helmet" width="110"
+                    <img src="/static/img/helmet.jpg" class="border border-secondary" alt="helmet" width="110"
                          height="100"/>
                 </div>
                 <div class="ml-lg-5">
-                    <img src="/img/pauldron.jpg" class="border border-secondary" alt="pauldron" width="110"
+                    <img src="/static/img/pauldron.jpg" class="border border-secondary" alt="pauldron" width="110"
                          height="100"/>
                 </div>
                 <div class="ml-lg-5">
-                    <img src="/img/pads.jpg" class="border border-secondary" alt="legs" width="110" height="100"/>
+                    <img src="/static/img/pads.jpg" class="border border-secondary" alt="legs" width="110" height="100"/>
                 </div>
                 <div class="ml-lg-5">
-                    <img src="/img/gauntlet.jpg" class="border border-secondary" alt="gauntlet" width="110"
+                    <img src="/static/img/gauntlet.jpg" class="border border-secondary" alt="gauntlet" width="110"
                          height="100"/>
                 </div>
             </div>
@@ -142,12 +139,6 @@
         </div>
     </form>
 </main>
-    <footer class="footer bg-dark  py-2">
-        <div class="container-fluid text-center">
-            <div class="footer-background h5 text-white">
-                &#169; CopyRight Victorious Arena. All rights reserved.
-            </div>
-        </div>
-    </footer>
+<th:block th:include="~{/fragments/footer}"/>
 </body>
 </html>
