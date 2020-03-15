@@ -7,6 +7,7 @@ import app.service.services.api.AuthService;
 import app.service.models.UserLoginServiceModel;
 import app.service.models.UserRegisterServiceModel;
 import app.service.services.api.AuthValidationService;
+import app.service.services.api.HashingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +20,22 @@ public class AuthServiceImpl implements AuthService {
 
     private final AuthValidationService validator;
 
-    public AuthServiceImpl(UserRepository userRepository, ModelMapper modelMapper, AuthValidationService validator) {
+    private final HashingService hashingService;
+
+    public AuthServiceImpl(UserRepository userRepository, ModelMapper modelMapper, AuthValidationService validator, HashingService hashingService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.validator = validator;
+        this.hashingService = hashingService;
     }
 
     @Override
     public void register(UserRegisterServiceModel serviceModel) {
 
         if (validator.isValid(serviceModel)) {
-            this.userRepository.saveAndFlush(this.modelMapper.map(serviceModel, User.class));
+            User user = this.modelMapper.map(serviceModel, User.class);
+            user.setPassword(this.hashingService.hash(user.getPassword()));
+            this.userRepository.saveAndFlush(user);
         } else {
             throw new IllegalArgumentException("Invalid input!");
         }
@@ -37,8 +43,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserAuthenticatedServiceModel login(UserLoginServiceModel serviceModel) {
+        String hashedPassword = this.hashingService.hash(serviceModel.getPassword());
+
         return this.userRepository
-                .findByUsernameAndPassword(serviceModel.getUsername(), serviceModel.getPassword())
+                .findByUsernameAndPassword(serviceModel.getUsername(), hashedPassword)
                 .map(u -> {
                     String heroName = u.getHero() == null
                             ? null
