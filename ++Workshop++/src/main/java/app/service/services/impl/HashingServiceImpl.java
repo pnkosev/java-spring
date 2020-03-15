@@ -1,5 +1,6 @@
-package app.service.services.api;
+package app.service.services.impl;
 
+import app.service.services.api.HashingService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
