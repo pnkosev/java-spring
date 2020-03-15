@@ -21,7 +21,7 @@
             </th:block>
 
             <th:block th:unless="${session.user == null && session.user.heroName == null}">
-                <h2>User, you have a hero. Buy items to make your hero stronger and later join the battle.</h2>
+                <h2>[[${session.user.username}]], you have a hero. Buy items to make your hero stronger and later join the battle.</h2>
             </th:block>
 
         </div>

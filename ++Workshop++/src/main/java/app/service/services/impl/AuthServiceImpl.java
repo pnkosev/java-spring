@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
                 .map(u -> {
                     String heroName = u.getHero() == null
                             ? null
-                            : u.getHero().getUsername();
+                            : u.getHero().getName();
                     return new UserAuthenticatedServiceModel(u.getUsername(), heroName);
                 })
                 .orElse(null);
