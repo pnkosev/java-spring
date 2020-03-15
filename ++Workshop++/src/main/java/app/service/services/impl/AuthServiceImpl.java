@@ -6,6 +6,7 @@ import app.service.models.UserAuthenticatedServiceModel;
 import app.service.services.api.AuthService;
 import app.service.models.UserLoginServiceModel;
 import app.service.models.UserRegisterServiceModel;
+import app.service.services.api.AuthValidationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,22 @@ public class AuthServiceImpl implements AuthService {
 
     private final ModelMapper modelMapper;
 
-    public AuthServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    private final AuthValidationService validator;
+
+    public AuthServiceImpl(UserRepository userRepository, ModelMapper modelMapper, AuthValidationService validator) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.validator = validator;
     }
 
     @Override
     public void register(UserRegisterServiceModel serviceModel) {
-        this.userRepository.saveAndFlush(this.modelMapper.map(serviceModel, User.class));
+
+        if (validator.isValid(serviceModel)) {
+            this.userRepository.saveAndFlush(this.modelMapper.map(serviceModel, User.class));
+        } else {
+            throw new IllegalArgumentException("Invalid input!");
+        }
     }
 
     @Override
