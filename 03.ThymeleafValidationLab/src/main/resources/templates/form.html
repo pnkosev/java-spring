@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<form th:action="@{/}" th:method="post" th:object="${personFormViewModel}">
+    <div class="name-input-block">
+        <label>
+            Name
+            <input type="text" th:field="*{name}"/>
+            <div th:if="${#fields.errors('name')}" th:errors="*{name}">Name errors</div>
+        </label>
+    </div>
+    <div class="age-input-block">
+        <label>
+            Age
+            <input type="text" th:field="*{age}"/>
+            <div th:if="${#fields.errors('age')}" th:errors="*{age}">Age errors</div>
+        </label>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
