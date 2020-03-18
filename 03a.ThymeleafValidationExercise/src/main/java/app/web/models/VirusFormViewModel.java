@@ -4,14 +4,18 @@ import app.data.models.Capital;
 import app.data.models.Creator;
 import app.data.models.Magnitude;
 import app.data.models.Mutation;
+import app.utils.annotations.DateBeforeToday;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -49,9 +53,12 @@ public class VirusFormViewModel {
     @Enumerated(EnumType.STRING)
     private Magnitude magnitude;
 
-    private Date releasedOn;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateBeforeToday
+    private LocalDate releasedOn;
 
-    private List<Capital> capitals;
+    @Size(min = 1, message = "You must choose at least 1 capital!")
+    private List<String> capitals;
 
     public String getName() {
         return this.name;
@@ -133,19 +140,19 @@ public class VirusFormViewModel {
         this.magnitude = magnitude;
     }
 
-    public Date getReleasedOn() {
+    public LocalDate getReleasedOn() {
         return this.releasedOn;
     }
 
-    public void setReleasedOn(Date releasedOn) {
+    public void setReleasedOn(LocalDate releasedOn) {
         this.releasedOn = releasedOn;
     }
 
-    public List<Capital> getCapitals() {
+    public List<String> getCapitals() {
         return this.capitals;
     }
 
-    public void setCapitals(List<Capital> capitals) {
+    public void setCapitals(List<String> capitals) {
         this.capitals = capitals;
     }
 }

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -54,7 +54,7 @@ public class Virus extends BaseEntity {
     private Magnitude magnitude;
 
     @Column(name = "released_on")
-    private Date releasedOn;
+    private LocalDate releasedOn;
 
     @ManyToMany
     @JoinTable(
@@ -146,11 +146,11 @@ public class Virus extends BaseEntity {
         this.magnitude = magnitude;
     }
 
-    public Date getReleasedOn() {
+    public LocalDate getReleasedOn() {
         return this.releasedOn;
     }
 
-    public void setReleasedOn(Date releasedOn) {
+    public void setReleasedOn(LocalDate releasedOn) {
         this.releasedOn = releasedOn;
     }
 

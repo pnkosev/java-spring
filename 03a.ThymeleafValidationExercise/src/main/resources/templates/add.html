@@ -14,76 +14,95 @@
             <form th:action="@{/viruses/add}" th:method="post" th:object="${virusFormViewModel}">
                 <div class="form-group nameInput">
                     <label for="nameInput">Name</label>
-                    <input type="text" class="form-control" id="nameInput" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" th:field="*{name}">
+                    <input type="text" class="form-control" id="nameInput"
+                           th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"
+                           th:field="*{name}">
                     <small th:if="${#fields.errors('name')}" th:errors="*{name}"></small>
                 </div>
                 <div class="form-group descriptionInput">
                     <label for="descriptionInput">Description</label>
-                    <input type="text" class="form-control" id="descriptionInput" th:classappend="${#fields.hasErrors('description')} ? 'is-invalid'" th:field="*{description}">
+                    <input type="text" class="form-control" id="descriptionInput"
+                           th:classappend="${#fields.hasErrors('description')} ? 'is-invalid'"
+                           th:field="*{description}">
                     <small th:if="${#fields.errors('description')}" th:errors="*{description}"></small>
                 </div>
                 <div class="form-group sideEffectsInput">
                     <label for="sideEffectsInput">Side Effects</label>
-                    <input type="number" class="form-control" id="sideEffectsInput" th:classappend="${#fields.hasErrors('sideEffects')} ? 'is-invalid'" th:field="*{sideEffects}">
+                    <input type="number" class="form-control" id="sideEffectsInput"
+                           th:classappend="${#fields.hasErrors('sideEffects')} ? 'is-invalid'"
+                           th:field="*{sideEffects}">
                     <small th:if="${#fields.errors('sideEffects')}" th:errors="*{sideEffects}"></small>
                 </div>
                 <div class="form-group mb-3 creatorInput">
                     <label for="creatorInput">Creator</label>
-                    <input type="text" class="form-control" id="creatorInput" th:classappend="${#fields.hasErrors('creator')} ? 'is-invalid'" th:field="*{creator}">
+                    <input type="text" class="form-control" id="creatorInput"
+                           th:classappend="${#fields.hasErrors('creator')} ? 'is-invalid'" th:field="*{creator}">
                     <small th:if="${#fields.errors('creator')}" th:errors="*{creator}"></small>
                 </div>
                 <div class="form-group form-check isDeadlyInput">
-                    <input type="checkbox" class="form-check-input" id="isDeadlyInput">
+                    <input type="checkbox" class="form-check-input" id="isDeadlyInput" th:field="*{deadly}">
                     <label class="form-check-label" for="isDeadlyInput">is Deadly?</label>
                 </div>
                 <div class="form-group form-check mb-3 isCurableInput">
-                    <input type="checkbox" class="form-check-input" id="isCurableInput">
+                    <input type="checkbox" class="form-check-input" id="isCurableInput" th:field="*{curable}">
                     <label class="form-check-label" for="isCurableInput">is Curable?</label>
                 </div>
                 <th:block th:each="value,iter : ${T(app.data.models.Mutation).values()}">
                     <div class="form-group form-check mt-3 mutationInput">
-                        <input class="form-check-input" type="radio" name="mutation" th:id="mutation + ${iter.index}" value="value" th:checked="${iter.index == 0 ? 'true' : 'false'}">
+                        <input class="form-check-input" type="radio" name="mutation" th:id="mutation + ${iter.index}"
+                               th:value="${value}" th:checked="${iter.index == 0 ? 'true' : 'false'}">
                         <label class="form-check-label" th:for="mutation + ${iter.index}">
                             [[${value}]]
                         </label>
                     </div>
                 </th:block>
                 <div class="form-group form-check mb-3 mutationInput">
-                    <input class="form-check-input" type="radio" name="mutation" id="mutation4" value="SAVE_HUMANITY" disabled>
+                    <input class="form-check-input" type="radio" name="mutation" id="mutation4" value="SAVE_HUMANITY"
+                           disabled>
                     <label class="form-check-label" for="mutation4">
                         SAVE_HUMANITY
                     </label>
                 </div>
                 <div class="form-group mt-3 turnOverRateInput">
                     <label for="turnOverRateInput">Turn Over Rate</label>
-                    <input type="number" class="form-control" id="turnOverRateInput" th:classappend="${#fields.hasErrors('turnOverRate')} ? 'is-invalid'" th:field="*{turnOverRate}">
+                    <input type="number" class="form-control" id="turnOverRateInput"
+                           th:classappend="${#fields.hasErrors('turnOverRate')} ? 'is-invalid'"
+                           th:field="*{turnOverRate}">
                     <small th:if="${#fields.errors('turnOverRate')}" th:errors="*{turnOverRate}"></small>
                 </div>
                 <div class="form-group hoursUntilTurnInput">
                     <label for="hoursUntilTurnInput">Hours until turn</label>
-                    <input type="number" class="form-control" id="hoursUntilTurnInput" th:classappend="${#fields.hasErrors('hoursUntilTurn')} ? 'is-invalid'" th:field="*{hoursUntilTurn}">
+                    <input type="number" class="form-control" id="hoursUntilTurnInput"
+                           th:classappend="${#fields.hasErrors('hoursUntilTurn')} ? 'is-invalid'"
+                           th:field="*{hoursUntilTurn}">
                     <small th:if="${#fields.errors('hoursUntilTurn')}" th:errors="*{hoursUntilTurn}"></small>
                 </div>
                 <div class="form-group magnitudeInput">
                     <label for="magnitudeInput">Magnitude</label>
-                    <select id="magnitudeInput" class="form-control">
-                        <option selected value="Low">LOW</option>
-                        <option value="Medium">MEDIUM</option>
-                        <option value="High">HIGH</option>
+                    <select id="magnitudeInput" class="form-control" th:field="*{magnitude}">
+                        <option th:each="magnitude : ${T(app.data.models.Magnitude).values()}"
+                                th:value="${magnitude}"
+                                th:text="${magnitude}"></option>
                     </select>
                 </div>
                 <div class="form-group releasedOnInput">
                     <label for="releasedOnInput">Released On</label>
-                    <input type="date" class="form-control" id="releasedOnInput" th:classappend="${#fields.hasErrors('releasedOn')} ? 'is-invalid'" th:field="*{releasedOn}">
+                    <input type="date" class="form-control" id="releasedOnInput"
+                           th:classappend="${#fields.hasErrors('releasedOn')} ? 'is-invalid'" th:field="*{releasedOn}">
                     <small th:if="${#fields.errors('releasedOn')}" th:errors="*{releasedOn}"></small>
                 </div>
                 <div class="form-group capitalsInput">
-                    <label for="capitalsInput">Example multiple select</label>
-                    <select multiple class="form-control" id="capitalsInput">
-                        <option>1</option>
-                        <option>1</option>
-                        <option>1</option>
+                    <label for="capitalsInput">Select capitals to infect:</label>
+                    <select class="form-control" id="capitalsInput" multiple="multiple"
+                            th:classappend="${#fields.hasErrors('capitals')} ? 'is-invalid'"
+                            th:field="*{capitals}">
+                        <option class="multi-option"
+                                th:each="capital : ${capitals}"
+                                th:value="${capital.id}"
+                                th:text="${capital.name}">
+                        </option>
                     </select>
+                    <small th:if="${#fields.errors('capitals')}" th:errors="*{capitals}"></small>
                 </div>
 
                 <button type="submit" class="btn mt-3 re-background">Submit</button>
@@ -92,5 +111,19 @@
         </div>
     </main>
 </div>
+<script>
+    $("select").mousedown(function(e){
+        e.preventDefault();
+
+        const select = this;
+        const scroll = select.scrollTop;
+
+        e.target.selected = !e.target.selected;
+
+        setTimeout(function(){select.scrollTop = scroll;}, 0);
+
+        $(select ).focus();
+    }).mousemove(function(e){e.preventDefault()});
+</script>
 </body>
 </html>
