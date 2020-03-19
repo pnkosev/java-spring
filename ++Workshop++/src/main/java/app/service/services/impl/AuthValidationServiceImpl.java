@@ -1,7 +1,7 @@
 package app.service.services.impl;
 
 import app.data.repositories.UserRepository;
-import app.service.models.UserRegisterServiceModel;
+import app.service.models.user.UserRegisterServiceModel;
 import app.service.services.api.AuthValidationService;
 import org.springframework.stereotype.Service;
 

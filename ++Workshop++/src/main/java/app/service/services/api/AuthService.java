@@ -1,8 +1,8 @@
 package app.service.services.api;
 
-import app.service.models.UserAuthenticatedServiceModel;
-import app.service.models.UserLoginServiceModel;
-import app.service.models.UserRegisterServiceModel;
+import app.service.models.user.UserAuthenticatedServiceModel;
+import app.service.models.user.UserLoginServiceModel;
+import app.service.models.user.UserRegisterServiceModel;
 
 public interface AuthService {
 

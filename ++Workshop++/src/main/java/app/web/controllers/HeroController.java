@@ -1,12 +1,14 @@
 package app.web.controllers;
 
-import app.service.models.HeroServiceModel;
-import app.service.models.UserAuthenticatedServiceModel;
+import app.service.models.hero.HeroDetailsServiceModel;
+import app.service.models.hero.HeroServiceModel;
+import app.service.models.user.UserAuthenticatedServiceModel;
 import app.service.services.api.HeroService;
 import app.web.models.binding.HeroCreateBindingModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -50,7 +52,10 @@ public class HeroController {
     }
 
     @GetMapping("/details/{name}")
-    public String details(@PathVariable String name) {
-        return "hero/hero-details";
+    public ModelAndView details(@PathVariable String name, ModelAndView mov) {
+        HeroDetailsServiceModel hero = this.heroService.getByHeroName(name);
+        mov.addObject("hero", hero);
+        mov.setViewName("hero/hero-details");
+        return mov;
     }
 }

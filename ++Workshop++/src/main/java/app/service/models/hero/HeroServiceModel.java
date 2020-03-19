@@ -1,4 +1,4 @@
-package app.service.models;
+package app.service.models.hero;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

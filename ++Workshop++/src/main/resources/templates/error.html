@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="en"
-    xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
 >
-<th:block th:include="~{/fragments/head}" />
+<th:block th:include="~{/fragments/head}"/>
 <body>
-    <th:block th:include="~{/fragments/header}" />
+<th:block th:include="~{/fragments/header}"/>
 
-    <div class="container text-center">
-        Error!
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>
+                    Oops!</h1>
+                <h2>
+                    404 Not Found</h2>
+                <div class="error-details">
+                    Sorry, an error has occurred, Requested page not found!
+                </div>
+                <div class="error-actions" th:if="${session.user == null}">
+                    <a th:href="@{/}" class="btn btn-primary btn-lg">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Take Me Home
+                    </a>
+                </div>
+                <div class="error-actions" th:unless="${session.user == null}">
+                    <a th:href="@{/home}" class="btn btn-primary btn-lg">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Take Me Home
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <th:block th:include="~{/fragments/footer}" />
+<th:block th:include="~{/fragments/footer}"/>
 </body>
 </html>

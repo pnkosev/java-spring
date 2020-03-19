@@ -1,8 +1,8 @@
 package app.web.controllers;
 
-import app.service.models.UserAuthenticatedServiceModel;
-import app.service.models.UserLoginServiceModel;
-import app.service.models.UserRegisterServiceModel;
+import app.service.models.user.UserAuthenticatedServiceModel;
+import app.service.models.user.UserLoginServiceModel;
+import app.service.models.user.UserRegisterServiceModel;
 import app.service.services.api.AuthService;
 import app.web.models.binding.UserLoginBindingModel;
 import app.web.models.binding.UserRegisterBindingModel;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 

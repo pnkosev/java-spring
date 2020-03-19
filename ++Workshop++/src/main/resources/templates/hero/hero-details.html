@@ -14,10 +14,10 @@
             <div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h3 class="align-middle">SoulTaker</h3>
+                        <h3 class="align-middle" th:text="${hero.name}"></h3>
                     </div>
                     <div class="col-md-2">
-                        <h3 class="align-middle">1</h3>
+                        <h3 class="align-middle" th:text="${hero.getLevel()}"></h3>
                     </div>
                     <div class="col-md-5">
                         <img src="/static/img/helmet.jpg" class="mr-5 mb-1" width="100" height="90">
@@ -25,14 +25,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="/static/img/male.jpg" alt="photo" class="align-middle" height="175"
+                        <img th:src="@{'/img/' + ${hero.gender.toString().toLowerCase()} + '.jpg'}" alt="photo" class="align-middle" height="175"
                              width="150"/>
                     </div>
                     <div class="col-md-2">
-                        <p class="align-content-center">Strength - 143</p>
-                        <p class="align-content-center">Stamina - 141</p>
-                        <p class="align-content-center">Attack - 81</p>
-                        <p class="align-content-center">Defence - 211</p>
+                        <p class="align-content-center">Strength - [[${hero.strength}]]</p>
+                        <p class="align-content-center">Stamina - [[${{hero.stamina}}]]</p>
+                        <p class="align-content-center">Attack - [[${{hero.attack}}]]</p>
+                        <p class="align-content-center">Defence - [[${{hero.defense}}]]</p>
                     </div>
                     <div class="col-md-5">
                         <img src="/static/img/weapon.jpg" width="100"

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<th:block th:include="~{/fragments/head}"/>
+<body>
+<th:block th:include="~{/fragments/header}"/>
+
+<div class="container text-center">
+    <h1 class="mt-5">Something went wrong</h1>
+    <hr class="my-5"/>
+    <h3 th:text="${message}"></h3>
+</div>
+
+<th:block th:include="~{/fragments/footer}"/>
+</body>
+</html>

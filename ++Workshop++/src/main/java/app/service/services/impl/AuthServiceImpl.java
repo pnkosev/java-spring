@@ -2,10 +2,10 @@ package app.service.services.impl;
 
 import app.data.models.User;
 import app.data.repositories.UserRepository;
-import app.service.models.UserAuthenticatedServiceModel;
+import app.service.models.user.UserAuthenticatedServiceModel;
 import app.service.services.api.AuthService;
-import app.service.models.UserLoginServiceModel;
-import app.service.models.UserRegisterServiceModel;
+import app.service.models.user.UserLoginServiceModel;
+import app.service.models.user.UserRegisterServiceModel;
 import app.service.services.api.AuthValidationService;
 import app.service.services.api.HashingService;
 import org.modelmapper.ModelMapper;
