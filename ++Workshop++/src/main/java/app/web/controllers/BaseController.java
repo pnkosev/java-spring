@@ -1,5 +1,6 @@
 package app.web.controllers;
 
+import app.error.UserNotFoundException;
 import app.service.models.user.UserAuthenticatedServiceModel;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +23,10 @@ public class BaseController {
     }
 
     protected String getUsernameFromSession(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            throw new UserNotFoundException("No user currently connected!");
+        }
+
         return ((UserAuthenticatedServiceModel)session.getAttribute("user")).getUsername();
     }
 }
