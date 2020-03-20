@@ -21,7 +21,11 @@ public class HeroDetailsServiceModel {
 
     private int defense;
 
-    private List<ItemServiceModel> items;
+    private ItemServiceModel helmet;
+    private ItemServiceModel weapon;
+    private ItemServiceModel pauldron;
+    private ItemServiceModel gauntlets;
+    private ItemServiceModel pads;
 
     public String getName() {
         return this.name;
@@ -79,11 +83,43 @@ public class HeroDetailsServiceModel {
         this.defense = defense;
     }
 
-    public List<ItemServiceModel> getItems() {
-        return this.items;
+    public ItemServiceModel getHelmet() {
+        return this.helmet;
     }
 
-    public void setItems(List<ItemServiceModel> items) {
-        this.items = items;
+    public void setHelmet(ItemServiceModel helmet) {
+        this.helmet = helmet;
+    }
+
+    public ItemServiceModel getWeapon() {
+        return this.weapon;
+    }
+
+    public void setWeapon(ItemServiceModel weapon) {
+        this.weapon = weapon;
+    }
+
+    public ItemServiceModel getPauldron() {
+        return this.pauldron;
+    }
+
+    public void setPauldron(ItemServiceModel pauldron) {
+        this.pauldron = pauldron;
+    }
+
+    public ItemServiceModel getGauntlets() {
+        return this.gauntlets;
+    }
+
+    public void setGauntlets(ItemServiceModel gauntlets) {
+        this.gauntlets = gauntlets;
+    }
+
+    public ItemServiceModel getPads() {
+        return this.pads;
+    }
+
+    public void setPads(ItemServiceModel pads) {
+        this.pads = pads;
     }
 }

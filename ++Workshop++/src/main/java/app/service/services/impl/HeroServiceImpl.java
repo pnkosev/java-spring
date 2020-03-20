@@ -1,8 +1,6 @@
 package app.service.services.impl;
 
-import app.data.models.Gender;
-import app.data.models.Hero;
-import app.data.models.User;
+import app.data.models.*;
 import app.data.repositories.HeroRepository;
 import app.data.repositories.UserRepository;
 import app.error.HeroNotFoundException;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class HeroServiceImpl implements HeroService {
@@ -57,13 +56,23 @@ public class HeroServiceImpl implements HeroService {
         Hero hero = optionalHero.get();
         HeroDetailsServiceModel heroDetailsModel = this.modelMapper.map(hero, HeroDetailsServiceModel.class);
 
-        List<ItemServiceModel> items = hero.getItems()
-                .stream()
-                .map(i -> this.modelMapper.map(i, ItemServiceModel.class))
-                .collect(Collectors.toList());
-
-        heroDetailsModel.setItems(items);
+        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.HELMET));
+        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.WEAPON));
+        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.PAULDRON));
+        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.GAUNTLETS));
+        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.PADS));
 
         return heroDetailsModel;
+    }
+
+    private ItemServiceModel getItemBySlot(List<Item> items, Slot slot) {
+        Optional<Item> item = items
+                .stream()
+                .filter(i -> i.getSlot().equals(slot))
+                .findFirst();
+
+        return item.isPresent()
+                ? this.modelMapper.map(item, ItemServiceModel.class)
+                : null;
     }
 }
