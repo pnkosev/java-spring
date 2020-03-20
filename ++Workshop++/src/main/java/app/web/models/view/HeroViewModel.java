@@ -2,18 +2,18 @@ package app.web.models.view;
 
 public class HeroViewModel {
 
-    private String heroName;
+    private String name;
 
     private int level;
 
     private String gender;
 
-    public String getHeroName() {
-        return this.heroName;
+    public String getName() {
+        return this.name;
     }
 
-    public void setHeroName(String heroName) {
-        this.heroName = heroName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getLevel() {

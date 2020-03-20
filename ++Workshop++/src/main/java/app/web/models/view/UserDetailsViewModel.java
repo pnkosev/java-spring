@@ -1,13 +1,12 @@
-package app.service.models.user;
+package app.web.models.view;
 
-import app.service.models.hero.HeroServiceModel;
+public class UserDetailsViewModel {
 
-public class UserDetailsServiceModel {
     private String username;
 
     private String email;
 
-    private HeroServiceModel hero;
+    private HeroViewModel hero;
 
     public String getUsername() {
         return this.username;
@@ -25,11 +24,11 @@ public class UserDetailsServiceModel {
         this.email = email;
     }
 
-    public HeroServiceModel getHero() {
+    public HeroViewModel getHero() {
         return this.hero;
     }
 
-    public void setHero(HeroServiceModel hero) {
+    public void setHero(HeroViewModel hero) {
         this.hero = hero;
     }
 }

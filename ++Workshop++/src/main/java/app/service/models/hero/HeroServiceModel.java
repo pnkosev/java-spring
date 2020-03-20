@@ -16,4 +16,6 @@ public class HeroServiceModel {
     private String gender;
 
     private String userUsername;
+
+    private int level;
 }

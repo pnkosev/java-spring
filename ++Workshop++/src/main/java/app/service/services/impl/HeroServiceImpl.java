@@ -4,6 +4,7 @@ import app.data.models.*;
 import app.data.repositories.HeroRepository;
 import app.data.repositories.UserRepository;
 import app.error.HeroNotFoundException;
+import app.error.UserNotFoundException;
 import app.service.factories.HeroFactory;
 import app.service.factories.HeroFactoryImpl;
 import app.service.models.hero.HeroDetailsServiceModel;
@@ -37,7 +38,15 @@ public class HeroServiceImpl implements HeroService {
     public void create(HeroServiceModel model) {
         HeroFactory heroFactory = new HeroFactoryImpl();
         Hero hero = heroFactory.create(model.getName(), Gender.valueOf(model.getGender().toUpperCase()));
-        User user = this.userRepository.findByUsername(model.getUserUsername());
+
+        Optional<User> userOptional = this.userRepository.findByUsername(model.getUserUsername());
+
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("No such user exists!");
+        }
+
+        User user = userOptional.get();
+
         user.setHero(hero);
         hero.setUser(user);
 
