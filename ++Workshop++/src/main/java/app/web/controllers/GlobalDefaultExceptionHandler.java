@@ -1,6 +1,7 @@
 package app.web.controllers;
 
 import app.error.HeroNotFoundException;
+import app.error.UserNotFoundException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +30,13 @@ class GlobalDefaultExceptionHandler {
 
     @ExceptionHandler(HeroNotFoundException.class)
     public ModelAndView heroNotFoundErrorHandler(RuntimeException e) {
+        ModelAndView mav = new ModelAndView(DEFAULT_ERROR_VIEW);
+        mav.addObject("message", e.getMessage());
+        return mav;
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ModelAndView userNotFoundErrorHandler(RuntimeException e) {
         ModelAndView mav = new ModelAndView(DEFAULT_ERROR_VIEW);
         mav.addObject("message", e.getMessage());
         return mav;

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/hero")
-public class HeroController {
+public class HeroController extends BaseController {
 
     private final HeroService heroService;
 
@@ -55,7 +55,6 @@ public class HeroController {
     public ModelAndView details(@PathVariable String name, ModelAndView mov) {
         HeroDetailsServiceModel hero = this.heroService.getByHeroName(name);
         mov.addObject("hero", hero);
-        mov.setViewName("hero/hero-details");
-        return mov;
+        return super.view("hero/hero-details", mov);
     }
 }

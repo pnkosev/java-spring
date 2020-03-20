@@ -3,8 +3,6 @@ package app.service.models.hero;
 import app.data.models.Gender;
 import app.service.models.item.ItemServiceModel;
 
-import java.util.List;
-
 public class HeroDetailsServiceModel {
 
     private String name;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class AuthController {
+public class AuthController extends BaseController {
 
     private final AuthService authService;
 
