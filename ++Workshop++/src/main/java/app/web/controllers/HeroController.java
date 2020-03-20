@@ -51,9 +51,9 @@ public class HeroController extends BaseController {
 
     }
 
-    @GetMapping("/details/{name}")
-    public ModelAndView details(@PathVariable String name, ModelAndView mov) {
-        HeroDetailsServiceModel hero = this.heroService.getByHeroName(name);
+    @GetMapping("/details/{heroName}")
+    public ModelAndView details(@PathVariable String heroName, ModelAndView mov) {
+        HeroDetailsServiceModel hero = this.heroService.getByHeroName(heroName);
         mov.addObject("hero", hero);
         return super.view("hero/hero-details", mov);
     }

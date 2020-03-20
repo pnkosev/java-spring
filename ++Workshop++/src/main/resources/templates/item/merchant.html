@@ -6,7 +6,7 @@
 >
 <th:block th:include="~{/fragments/head}"/>
 <body>
-<th:block th:include="~{fragments/header}" />
+<th:block th:include="~{fragments/header}"/>
 <main class="container">
     <h1 class="text-center">Merchant</h1>
     <hr class="hr-3"/>
@@ -18,76 +18,28 @@
             <th scope="col">Stamina</th>
             <th scope="col">Strength</th>
             <th scope="col">Attack</th>
-            <th scope="col">Defence</th>
+            <th scope="col">Defense</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Relentless</td>
-            <td>PADS</td>
-            <td>25</td>
-            <td>22</td>
-            <td>0</td>
-            <td>60</td>
-            <td>
-                <form action="/items/merchant/Relentless" method="post">
-                <button class="btn btn-info">Buy</button>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>DragonScale</td>
-            <td>HELMET</td>
-            <td>15</td>
-            <td>10</td>
-            <td>0</td>
-            <td>40</td>
-            <td>
-                <form action="/items/merchant/DragonScale" method="post">
-                <button class="btn btn-info">Buy</button>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>Wrathfull</td>
-            <td>PAULDRON</td>
-            <td>45</td>
-            <td>30</td>
-            <td>0</td>
-            <td>80</td>
-            <td>
-                <form action="/items/merchant/Wrathfull" method="post">
-                <button class="btn btn-info">Buy</button>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>Furious</td>
-            <td>GAUNTLETS</td>
-            <td>15</td>
-            <td>20</td>
-            <td>0</td>
-            <td>30</td>
-            <td>
-                <form action="/items/merchant/Furious" method="post">
-                <button class="btn btn-info">Buy</button>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>Glorenzelg</td>
-            <td>WEAPON</td>
-            <td>40</td>
-            <td>60</td>
-            <td>80</td>
-            <td>0</td>
-            <td>
-                <form action="/items/merchant/Glorenzelg" method="post">
-                <button class="btn btn-info">Buy</button>
-                </form>
-            </td>
-        </tr>
+        <th:block th:each="item : ${items}">
+
+            <tr>
+                <td th:text="*{item.name}"></td>
+                <td th:text="*{item.slot.toString()}">PADS</td>
+                <td th:text="*{item.stamina}">25</td>
+                <td th:text="*{item.strength}">22</td>
+                <td th:text="*{item.attack}">0</td>
+                <td th:text="*{item.defense}">60</td>
+                <td>
+                    <form th:action="@{'/items/merchant/' + item.name}" th:method="post">
+                        <button class="btn btn-info">Buy</button>
+                    </form>
+                </td>
+            </tr>
+
+        </th:block>
         </tbody>
     </table>
 </main>
