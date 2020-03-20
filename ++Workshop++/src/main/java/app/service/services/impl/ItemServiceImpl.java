@@ -30,11 +30,20 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemServiceModel> getAllItems() {
+    public List<ItemServiceModel> getAllItems(String heroName) {
         return this.itemRepository
                 .findAll()
                 .stream()
-                .map(i -> this.modelMapper.map(i, ItemServiceModel.class))
+                .map(i -> {
+                    ItemServiceModel ism = this.modelMapper.map(i, ItemServiceModel.class);
+
+                    i.getHeroes().forEach(h -> {
+                        if (h.getName().equals(heroName)) {
+                            ism.setOwned(true);
+                        }
+                    });
+                    return ism;
+                })
                 .collect(Collectors.toList());
     }
 }

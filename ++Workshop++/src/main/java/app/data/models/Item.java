@@ -33,11 +33,6 @@ public class Item extends BaseEntity {
     @Column(nullable = false)
     private int defense;
 
-    @ManyToMany
-    @JoinTable(
-            name = "heroes_items",
-            joinColumns = @JoinColumn(name = "hero_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id")
-    )
+    @ManyToMany(mappedBy = "items")
     private List<Hero> heroes;
 }

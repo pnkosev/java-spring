@@ -29,4 +29,12 @@ public class BaseController {
 
         return ((UserAuthenticatedServiceModel)session.getAttribute("user")).getUsername();
     }
+
+    protected String getHeroNameFromSession(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            throw new UserNotFoundException("No user currently connected!");
+        }
+
+        return ((UserAuthenticatedServiceModel)session.getAttribute("user")).getHeroName();
+    }
 }

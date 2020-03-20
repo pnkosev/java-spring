@@ -2,6 +2,7 @@ package app.service.services.impl;
 
 import app.data.models.*;
 import app.data.repositories.HeroRepository;
+import app.data.repositories.ItemRepository;
 import app.data.repositories.UserRepository;
 import app.error.HeroNotFoundException;
 import app.error.UserNotFoundException;
@@ -16,11 +17,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class HeroServiceImpl implements HeroService {
+
+    private final ItemRepository itemRepository;
 
     private final HeroRepository heroRepository;
 
@@ -28,7 +29,8 @@ public class HeroServiceImpl implements HeroService {
 
     private final ModelMapper modelMapper;
 
-    public HeroServiceImpl(HeroRepository heroRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public HeroServiceImpl(ItemRepository itemRepository, HeroRepository heroRepository, UserRepository userRepository, ModelMapper modelMapper) {
+        this.itemRepository = itemRepository;
         this.heroRepository = heroRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
@@ -56,22 +58,78 @@ public class HeroServiceImpl implements HeroService {
 
     @Override
     public HeroDetailsServiceModel getByHeroName(String heroName) {
+        Hero hero = this.getHero(heroName);
+        HeroDetailsServiceModel heroDetailsModel = this.modelMapper.map(hero, HeroDetailsServiceModel.class);
+
+        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.HELMET));
+        heroDetailsModel.setWeapon(getItemBySlot(hero.getItems(), Slot.WEAPON));
+        heroDetailsModel.setPauldron(getItemBySlot(hero.getItems(), Slot.PAULDRON));
+        heroDetailsModel.setGauntlets(getItemBySlot(hero.getItems(), Slot.GAUNTLETS));
+        heroDetailsModel.setPads(getItemBySlot(hero.getItems(), Slot.PADS));
+
+        return heroDetailsModel;
+    }
+
+    @Override
+    public void updateHeroItem(String heroName, String itemName) {
+        Hero hero = this.getHero(heroName);
+
+        Item item = this.itemRepository.findByName(itemName);
+
+        if (hero.getItems().indexOf(item) < 0) {
+            int indexOfItem = getIndexOfSlot(hero.getItems(), item.getSlot());
+
+            if (indexOfItem > -1) {
+                Item oldItem = hero.getItems().get(indexOfItem);
+                Item oldItemEntity = this.itemRepository.findByName(oldItem.getName());
+                oldItemEntity.getHeroes().remove(hero);
+                this.itemRepository.saveAndFlush(oldItemEntity);
+                this.removeStatsFromHero(hero, oldItem);
+                hero.getItems().set(indexOfItem, item);
+            } else {
+                hero.getItems().add(item);
+            }
+
+            this.addStatsToHero(hero, item);
+            item.getHeroes().add(hero);
+
+            this.itemRepository.saveAndFlush(item);
+            this.heroRepository.saveAndFlush(hero);
+        }
+
+    }
+
+    private void removeStatsFromHero(Hero hero, Item item) {
+        hero.setStamina(hero.getStamina() - item.getStamina());
+        hero.setStrength(hero.getStrength() - item.getStrength());
+        hero.setAttack(hero.getAttack() - item.getAttack());
+        hero.setDefense(hero.getDefense() - item.getDefense());
+    }
+
+    private void addStatsToHero(Hero hero, Item item) {
+        hero.setStamina(hero.getStamina() + item.getStamina());
+        hero.setStrength(hero.getStrength() + item.getStrength());
+        hero.setAttack(hero.getAttack() + item.getAttack());
+        hero.setDefense(hero.getDefense() + item.getDefense());
+    }
+
+    private Hero getHero(String heroName) {
         Optional<Hero> optionalHero = this.heroRepository.getByNameIgnoreCase(heroName);
 
         if (optionalHero.isEmpty()) {
             throw new HeroNotFoundException("No such hero found!");
         }
 
-        Hero hero = optionalHero.get();
-        HeroDetailsServiceModel heroDetailsModel = this.modelMapper.map(hero, HeroDetailsServiceModel.class);
+        return optionalHero.get();
+    }
 
-        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.HELMET));
-        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.WEAPON));
-        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.PAULDRON));
-        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.GAUNTLETS));
-        heroDetailsModel.setHelmet(getItemBySlot(hero.getItems(), Slot.PADS));
+    private int getIndexOfSlot(List<Item> items, Slot slot) {
+        Optional<Item> item = items
+                .stream()
+                .filter(i -> i.getSlot().equals(slot))
+                .findFirst();
 
-        return heroDetailsModel;
+        return item.map(items::indexOf).orElse(-1);
     }
 
     private ItemServiceModel getItemBySlot(List<Item> items, Slot slot) {

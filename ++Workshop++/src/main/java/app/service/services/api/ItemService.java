@@ -9,5 +9,5 @@ public interface ItemService {
 
     void create(ItemCreateServiceModel itemServiceModel);
 
-    List<ItemServiceModel> getAllItems();
+    List<ItemServiceModel> getAllItems(String heroName);
 }

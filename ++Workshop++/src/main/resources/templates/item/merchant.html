@@ -27,14 +27,14 @@
 
             <tr>
                 <td th:text="*{item.name}"></td>
-                <td th:text="*{item.slot.toString()}">PADS</td>
-                <td th:text="*{item.stamina}">25</td>
-                <td th:text="*{item.strength}">22</td>
-                <td th:text="*{item.attack}">0</td>
-                <td th:text="*{item.defense}">60</td>
+                <td th:text="*{item.slot.toString()}"></td>
+                <td th:text="*{item.stamina}"></td>
+                <td th:text="*{item.strength}"></td>
+                <td th:text="*{item.attack}"></td>
+                <td th:text="*{item.defense}"></td>
                 <td>
-                    <form th:action="@{'/items/merchant/' + item.name}" th:method="post">
-                        <button class="btn btn-info">Buy</button>
+                    <form th:action="@{'/item/merchant/' + ${item.name}}" th:method="post">
+                        <button class="btn btn-info" th:disabled="${item.owned}">Buy</button>
                     </form>
                 </td>
             </tr>
