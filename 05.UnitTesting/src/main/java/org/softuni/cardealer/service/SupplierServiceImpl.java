@@ -25,7 +25,6 @@ public class SupplierServiceImpl implements SupplierService {
         this.supplierRepository.saveAndFlush(supplier);
 
         return this.modelMapper.map(supplier, SupplierServiceModel.class);
-
     }
 
     @Override
@@ -36,7 +35,6 @@ public class SupplierServiceImpl implements SupplierService {
         Supplier result = this.supplierRepository.saveAndFlush(supplier);
 
         return this.modelMapper.map(result, SupplierServiceModel.class);
-
     }
 
     @Override
@@ -45,7 +43,6 @@ public class SupplierServiceImpl implements SupplierService {
         this.supplierRepository.delete(supplier);
 
         return this.modelMapper.map(supplier, SupplierServiceModel.class);
-
     }
 
     @Override
@@ -53,6 +50,5 @@ public class SupplierServiceImpl implements SupplierService {
         Supplier supplier = this.supplierRepository.findById(id).orElse(null);
 
         return this.modelMapper.map(supplier, SupplierServiceModel.class);
-
     }
 }
