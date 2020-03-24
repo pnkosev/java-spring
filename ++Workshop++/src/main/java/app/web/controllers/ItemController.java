@@ -54,16 +54,7 @@ public class ItemController extends BaseController {
     }
 
     @GetMapping("/merchant")
-    public ModelAndView merchant(ModelAndView mov, HttpSession session) {
-        List<ItemServiceModel> allItems = this.itemService.getAllItems(super.getHeroNameFromSession(session));
-        mov.addObject("items", allItems);
-        return super.view("item/merchant", mov);
-    }
-
-    @PostMapping("/merchant/{itemName}")
-    public ModelAndView merchantPost(@PathVariable String itemName, HttpSession session) {
-        this.heroService.updateHeroItem(super.getHeroNameFromSession(session), itemName);
-
-        return super.redirect("/item/merchant");
+    public ModelAndView merchant() {
+        return super.view("/item/merchant");
     }
 }

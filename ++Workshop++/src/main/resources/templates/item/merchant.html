@@ -22,27 +22,11 @@
             <th scope="col"></th>
         </tr>
         </thead>
-        <tbody>
-        <th:block th:each="item : ${items}">
-
-            <tr>
-                <td th:text="*{item.name}"></td>
-                <td th:text="*{item.slot.toString()}"></td>
-                <td th:text="*{item.stamina}"></td>
-                <td th:text="*{item.strength}"></td>
-                <td th:text="*{item.attack}"></td>
-                <td th:text="*{item.defense}"></td>
-                <td>
-                    <form th:action="@{'/item/merchant/' + ${item.name}}" th:method="post">
-                        <button class="btn btn-info" th:disabled="${item.owned}">Buy</button>
-                    </form>
-                </td>
-            </tr>
-
-        </th:block>
-        </tbody>
+        <tbody id="table-item-body"></tbody>
     </table>
 </main>
 <th:block th:include="~{/fragments/footer}"/>
+
+<script src="/js/item.js"></script>
 </body>
 </html>
